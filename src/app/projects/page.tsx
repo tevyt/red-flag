@@ -4,6 +4,7 @@ import ProjectListing from "./components/ProjectListing";
 import { Project } from "./types";
 
 export default function Projects() {
+  const projects1: Project[] = [];
   const projects: Project[] = [
     {
       id: 1,
