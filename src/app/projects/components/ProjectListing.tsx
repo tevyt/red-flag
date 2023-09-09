@@ -40,7 +40,7 @@ export default function ProjectListing(props: ProjectListingProps) {
 
               <img
                 className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
-                src={project.imageUrl}
+                src={project.logo}
                 alt={project.name}
               />
             </div>

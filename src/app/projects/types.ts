@@ -5,5 +5,5 @@ export type Project = {
   name: string;
   description: string;
   status: ProjectStatus;
-  imageUrl: string;
+  logo: string;
 };
