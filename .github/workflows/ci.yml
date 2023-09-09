@@ -23,11 +23,11 @@ jobs:
       - run: npm test
   e2e:
     runs-on: ubuntu-latest
-     steps:
+    steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev
+          start: npm start
