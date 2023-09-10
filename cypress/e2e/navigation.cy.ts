@@ -29,19 +29,19 @@ describe("Navigation", () => {
       cy.viewport("iphone-6");
     });
     it("should open the sidebar", () => {
-      cy.get("button[id='sidebar-open']").click();
-      cy.get("div[id='sidebar']").should("exist");
-      cy.get("button[id='sidebar-close']").click();
-      cy.get("div[id='sidebar']").should("not.exist");
+      cy.get("button[cy-data='sidebar-open']").click();
+      cy.get("div[cy-data='sidebar']").should("exist");
+      cy.get("button[cy-data='sidebar-close']").click();
+      cy.get("div[cy-data='sidebar']").should("not.exist");
     });
 
     it("should navigate to the projects page", () => {
-      cy.get("button[id='sidebar-open']").click();
+      cy.get("button[cy-data='sidebar-open']").click();
       cy.get("a[href='/projects']").last().click();
       cy.url().should("include", "/projects");
     });
     it("should navigate to the users page", () => {
-      cy.get("button[id='sidebar-open']").click();
+      cy.get("button[cy-data='sidebar-open']").click();
       cy.get("a[href='/users']").last().click();
       cy.url().should("include", "/users");
     });

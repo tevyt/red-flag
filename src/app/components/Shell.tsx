@@ -52,7 +52,7 @@ export default function Shell(props: ShellProps) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            id="sidebar"
+            cy-data="sidebar"
             className="relative z-50 lg:hidden"
             onClose={setSidebarOpen}
           >
@@ -91,7 +91,7 @@ export default function Shell(props: ShellProps) {
                     <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                       <button
                         type="button"
-                        id="sidebar-close"
+                        cy-data="sidebar-close"
                         className="-m-2.5 p-2.5"
                         onClick={() => setSidebarOpen(false)}
                       >
@@ -165,6 +165,7 @@ export default function Shell(props: ShellProps) {
                       <li key={item.name}>
                         <Link
                           href={item.href}
+                          cy-data={`sidebar-link-${item.page}`}
                           className={classNames(
                             item.page === currentItem.page
                               ? "bg-gray-800 text-white"
@@ -204,7 +205,7 @@ export default function Shell(props: ShellProps) {
         <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
-            id="sidebar-open"
+            cy-data="sidebar-open"
             className="-m-2.5 p-2.5 text-gray-400 lg:hidden"
             onClick={() => setSidebarOpen(true)}
           >
