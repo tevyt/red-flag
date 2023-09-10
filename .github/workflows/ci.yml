@@ -61,7 +61,7 @@ jobs:
         with:
           node-version: 18.x
       - run: npm ci
-      - run: npm prisma migrate deploy
+      - run: npx prisma migrate deploy
         env:
           DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
 
