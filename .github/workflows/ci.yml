@@ -63,12 +63,12 @@ jobs:
       - run: npm ci
       - run: npx prisma migrate deploy
         env:
-          DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
-          DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
         with:
           build: npm run build
           start: npm start
