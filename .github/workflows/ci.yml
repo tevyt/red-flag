@@ -8,7 +8,7 @@ on:
 
 #
 jobs:
-  test:
+  unit-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,6 +21,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm test
+  component-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm run component-test:headless
   e2e:
     runs-on: ubuntu-latest
     steps:

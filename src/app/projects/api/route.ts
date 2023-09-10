@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import ProjectRepository from "../db/ProjectRepository";
+import ProjectService from "../services/ProjectsService";
 
 export async function GET() {
-  const projectRepository = new ProjectRepository();
-  const projects = await projectRepository.getProjects();
+  const projectService = new ProjectService();
+
+  const projects = await projectService.getProjects();
 
   return NextResponse.json({ projects });
 }
