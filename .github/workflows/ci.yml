@@ -36,12 +36,30 @@ jobs:
       - run: npm run component-test:headless
   e2e:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        env:
+          DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
         with:
           build: npm run build
           start: npm start
