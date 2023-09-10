@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorMessageModal from "../../../src/app/projects/components/ErrorMessageModal";
+import ErrorMessageModal from "../../../../src/app/projects/components/ErrorMessageModal";
 
 describe("<ErrorMessageModal />", () => {
   it("renders", () => {

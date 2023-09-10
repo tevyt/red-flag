@@ -165,6 +165,7 @@ export default function Shell(props: ShellProps) {
                       <li key={item.name}>
                         <Link
                           href={item.href}
+                          cy-data={`sidebar-link-${item.page}`}
                           className={classNames(
                             item.page === currentItem.page
                               ? "bg-gray-800 text-white"
