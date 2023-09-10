@@ -22,6 +22,7 @@ export default function ProjectListing(props: ProjectListingProps) {
       >
         {projects.map((project) => (
           <li
+            cy-data={`project-${project.id}`}
             key={project.id}
             className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
           >
