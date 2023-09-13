@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "db:sync": "npx prisma migrate deploy",
+    "db:sync:dev": "npx prisma migrate dev",
     "cypress": "cypress open",
-    "test": "jest",
-    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
-    "component-test": "cypress open --component",
-    "component-test:headless": "cypress run --component"
+    "test:unit": "jest",
+    "test:e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "test:e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "test:component": "cypress open --component",
+    "test:component:headless": "cypress run --component"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
