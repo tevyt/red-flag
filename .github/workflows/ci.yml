@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm test
+      - run: npm run test:unit
   component-test:
     runs-on: ubuntu-latest
     strategy:
@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run component-test:headless
+      - run: npm run test:component:headless
   e2e:
     runs-on: ubuntu-latest
     services:
@@ -61,7 +61,7 @@ jobs:
         with:
           node-version: 18.x
       - run: npm ci
-      - run: npx prisma migrate deploy
+      - run: npm run db:sync
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
 
