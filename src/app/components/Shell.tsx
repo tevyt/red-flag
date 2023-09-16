@@ -37,7 +37,7 @@ export default function Shell(props: ShellProps) {
   const githubUrl = "https://github.com/tevyt/red-flag";
 
   const currentItem =
-    navigation.find((item) => item.page === page) || navigation[0];
+    navigation.find((item) => item.page === page) ?? navigation[0];
   return (
     <>
       {/*

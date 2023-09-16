@@ -55,7 +55,7 @@ export default function ErrorMessageModal(props: ErrorMessageModalProps) {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        {details ? details : "Please try again later."}
+                        {details ?? "Please try again later."}
                       </p>
                     </div>
                   </div>
