@@ -14,62 +14,61 @@ jobs:
     runs-on: $OS_IMAGE
     steps:
       - name: Checkout
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
 
       - name: Install Dependencies
-      - run: npm run ci
+        run: npm run ci
 
       - name: Cache Node Dependencies
         uses: actions/cache@v3.3.2
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-      
+
   unit-test:
     runs-on: $OS_IMAGE
     needs: install-dependencies
     steps:
-      - name: Checkout
       - uses: actions/checkout@v3
 
       - name: Get Cached Dependencies
         uses: actions/cache@v3.3.2
         with:
-         path: '**/node_modules'
-         key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-      
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: $NODE_VERSION
 
-      - name: Run Unit Tests    
-      - run: npm run test:unit
-      
+      - name: Run Unit Tests
+        run: npm run test:unit
+
   component-test:
     runs-on: $OS_IMAGE
     needs: install-dependencies
     steps:
       - name: Checkout
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Get Cached Dependencies
         uses: actions/cache@v3.3.2
         with:
-         path: '**/node_modules'
-         key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-      
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: $NODE_VERSION
 
       - name: Run Component Tests
-      - run: npm run test:component:headless
-      
+        run: npm run test:component:headless
+
   e2e:
     runs-on: $OS_IMAGE
     needs: install-dependencies
@@ -96,16 +95,16 @@ jobs:
       - name: Get Cached Dependencies
         uses: actions/cache@v3.3.2
         with:
-         path: '**/node_modules'
-         key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: $NODE_VERSION
-          
+
       - name: Synchronize Test Database
-      - run: npm run db:sync
+        run: npm run db:sync
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
 
