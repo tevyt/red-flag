@@ -40,5 +40,16 @@ describe("<ErrorMessageModal />", () => {
         expect(onClose).to.be.called;
       });
     });
+    it("should show the default message when no details are provided", () => {
+      cy.mount(
+        <ErrorMessageModal
+          open={true}
+          onClose={onClose}
+          message="Test"
+          closeText="Close"
+        />
+      );
+      cy.contains("Please try again later.");
+    });
   });
 });
