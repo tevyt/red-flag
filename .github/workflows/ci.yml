@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Install Dependencies
-        run: npm run ci
+        run: npm ci
 
       - name: Cache Node Dependencies
         uses: actions/cache@v3.3.2
