@@ -6,36 +6,73 @@ on:
   pull_request:
     branches: [main]
 
-#
+env:
+  NODE_VERSION: "18.x"
+  OS_IMAGE: "ubuntu-latest"
 jobs:
+  install-dependencies:
+    runs-on: $OS_IMAGE
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install Dependencies
+      - run: npm run ci
+
+      - name: Cache Node Dependencies
+        uses: actions/cache@v3.3.2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+      
   unit-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
+    runs-on: $OS_IMAGE
+    needs: install-dependencies
     steps:
+      - name: Checkout
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+
+      - name: Get Cached Dependencies
+        uses: actions/cache@v3.3.2
+        with:
+         path: '**/node_modules'
+         key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+      
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
+          node-version: $NODE_VERSION
+
+      - name: Run Unit Tests    
       - run: npm run test:unit
+      
   component-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
+    runs-on: $OS_IMAGE
+    needs: install-dependencies
     steps:
+      - name: Checkout
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+
+      - name: Get Cached Dependencies
+        uses: actions/cache@v3.3.2
+        with:
+         path: '**/node_modules'
+         key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+      
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
+          node-version: $NODE_VERSION
+
+      - name: Run Component Tests
       - run: npm run test:component:headless
+      
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: $OS_IMAGE
+    needs: install-dependencies
     services:
       postgres:
         image: postgres
@@ -56,11 +93,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Synchronize Test Database
+      - name: Get Cached Dependencies
+        uses: actions/cache@v3.3.2
+        with:
+         path: '**/node_modules'
+         key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-      - run: npm ci
+          node-version: $NODE_VERSION
+          
+      - name: Synchronize Test Database
       - run: npm run db:sync
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
