@@ -1,5 +1,7 @@
 # Red Flag - Application Feature Flags Management Tool
 
+![Build Status](https://github.com/tevyt/red-flag/actions/workflows/ci.yml/badge.svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=tevyt_red-flag&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=tevyt_red-flag)
+
 Red Flag is a tool for managing application feature flags. Redflag allows for the management of features of internet connected applications. Allowing for features to be toggled for specific user segments without needing a new deployment or release.
 
 ## Use cases for Red Flag
