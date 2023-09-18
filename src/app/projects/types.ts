@@ -7,3 +7,4 @@ export type Project = {
   status: ProjectStatus;
   logo: string;
 };
+
