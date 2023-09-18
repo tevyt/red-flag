@@ -1,3 +1,4 @@
+import { ProjectCreationRequest } from "../api/types";
 import ProjectsRepository from "../db/ProjectsRepository";
 import { Project } from "../types";
 
@@ -10,4 +11,8 @@ export default class ProjectService {
   async getProjects(): Promise<Project[]> {
     return await this.projectRepository.getProjects();
   }
+  async postProject(project: ProjectCreationRequest): Promise<Project> {
+    return await this.projectRepository.postProject(project);
+  }
+
 }
