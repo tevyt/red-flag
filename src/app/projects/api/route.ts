@@ -13,7 +13,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
 
-  const { name, description, status, base64data, file_type} = await req.json();
+  const { name, description, status, base64data, file_type } = await req.json();
 
   const client = new S3Client({
     region: process.env.AWS_REGION as string,
@@ -31,28 +31,21 @@ export async function POST(req: NextRequest) {
   };
 
   const projectService = new ProjectService();
-  const res = await projectService.postProject(prismaCreationRequest)
-    .then(async (res) => {
-      console.log(`Created project with id: ${res.id}`)
+  try {
+    const res = await projectService.postProject(prismaCreationRequest)
+    console.log(`Created project with id: ${res.id}`)
+    const putObjectParams = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: res.id.toString(),
+      Body: base64data, //TODO: Replace with multipart uplaod
+      ContentType: file_type
+    };
+    await client.send(new PutObjectCommand(putObjectParams))
+    console.log(`Uploaded project image with object-id: ${res.id}`);
+    return NextResponse.json( res );
 
-      const putObjectParams = {
-        Bucket: process.env.BUCKET_NAME,
-        Key: res.id.toString(),
-        Body: base64data, //TODO: Replace with multipart uplaod
-        ContentType: file_type 
-      };
-
-      return await client.send(new PutObjectCommand(putObjectParams))
-        .then(async (resAWS) => {
-          await projectService.putProjectImage(res.id, res.id.toString())
-          console.log(`Uploaded logo to S3 with id: ${res.id}`);
-        }
-        )
-        .catch((error) => {
-          console.log("Failed to Upload Image");
-        });
-    })
-    .catch((error) => { console.log(error); });
-
-  return NextResponse.json({ res });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json( error );
+  }
 }

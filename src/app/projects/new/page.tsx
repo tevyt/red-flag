@@ -4,7 +4,6 @@ import { Project, ProjectStatus } from "../types";
 import Link from "next/link";
 import classNames from "@/app/utils/classNames";
 import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react';
-import Axios from "axios";
 
 export default function CreateProject() {
   let [name, setName] = useState("");
@@ -28,22 +27,25 @@ export default function CreateProject() {
   const _handleSubmit: FormEventHandler<HTMLFormElement> = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(previewURL)
-    let res = await Axios.post("/projects/api/", {
-      name: name,
-      description: description,
-      status: "Inactive",
-      base64data:previewURL,
-      type:(file?.type ?? null)
+    let res = await fetch("/projects/api/", {
+      method:"POST",
+      body: JSON.stringify({
+        name: name,
+        description: description,
+        status: "Inactive",
+        base64data:previewURL,
+        type:(file?.type ?? null)
+      })
     })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       })
   };
-  let $imagePreview = null;
+  let imagePreview = null;
   if (previewURL) {
-    $imagePreview = (<img className="h-24 w-24" style={{ borderRadius: "100%", overflow: "hidden", backgroundColor: "white" }} src={previewURL} />);
+    imagePreview = (<img className="h-24 w-24" style={{ borderRadius: "100%", overflow: "hidden", backgroundColor: "white" }} src={previewURL} />);
   } else {
-    $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+    imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
   }
 
   return (
@@ -93,7 +95,7 @@ export default function CreateProject() {
               <div className="mt-2 flex items-center gap-x-3">
                 <div>
                   <div>
-                    {$imagePreview}
+                    {imagePreview}
                   </div>
                 </div>
                 <input
