@@ -17,6 +17,7 @@
     "test:component:headless": "cypress run --component"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.414.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@prisma/client": "^5.2.0",

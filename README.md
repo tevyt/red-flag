@@ -26,6 +26,17 @@ RedFlag requires a Postgres database. You will need access to a Postgres databas
 
 Once you have access to your database you will need to set the environment variable `DATABASE_URL` to a postgres connection string. For example the connections string may be `postgresql://<database-user-name>:<database-password>@<database-host>:<database-port>/<database-name>?schema=public`. The values in <> should be replaced with your specific database values.
 
+#### Configuration
+
+You will need to configure your environment variables for the serverseid application to work properly. The necessary variables are defined in the following table
+
+| Variable Name         | Descriptions            |
+| --------------------- | ----------------------- |
+| AWS_ACCESS_KEY_ID     | AWS IAM user access key |
+| AWS_SECRET_ACCESS_KEY | AWS IAM user secret key |
+| BUCKET_NAME           | Name of AWS S3 bucket   |
+| AWS_REGION            | Region of AWSS3 bucket  |
+
 ### Running RedFlag
 
 #### Install dependencies
