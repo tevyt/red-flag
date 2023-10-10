@@ -31,4 +31,15 @@ export default class ProjectRepository {
     return res as Project;
 
   }
+
+  async putProject(id:number, data:object): Promise<Project> {
+
+    const res = await this.prisma.project.update({
+      where: { id: id },
+      data: data,
+    })
+
+    return res as Project;
+
+  }
 }

@@ -14,5 +14,9 @@ export default class ProjectService {
   async postProject(project: ProjectCreationRequest): Promise<Project> {
     return await this.projectRepository.postProject(project);
   }
+  async putProject(id:number, data:object): Promise<Project> {
+    return await this.projectRepository.putProject(id, data);
+    
+  }
 
 }

@@ -4,12 +4,15 @@ import { Project, ProjectStatus } from "../types";
 import Link from "next/link";
 import classNames from "@/app/utils/classNames";
 import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react';
+import { useRouter } from "next/navigation";
 
 export default function CreateProject() {
   let [name, setName] = useState("");
   let [description, setDescription] = useState("");
   let [file, setFile] = useState(null as null | File)
   let [previewURL, setPreviewURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/74/White_Cliffs_of_Dover_02.JPG");
+
+  const router = useRouter();
 
   const _handleImageChange: ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -26,7 +29,6 @@ export default function CreateProject() {
 
   const _handleSubmit: FormEventHandler<HTMLFormElement> = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(previewURL)
     let res = await fetch("/projects/api/", {
       method:"POST",
       body: JSON.stringify({
@@ -37,9 +39,10 @@ export default function CreateProject() {
         type:(file?.type ?? null)
       })
     })
-      .catch((err) => {
-        console.error(err);
-      })
+    .catch((err) => {
+      console.error(err);
+    })
+    router.push("/");
   };
   let imagePreview = null;
   if (previewURL) {

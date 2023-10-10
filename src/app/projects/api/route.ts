@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
     };
     await client.send(new PutObjectCommand(putObjectParams))
     console.log(`Uploaded project image with object-id: ${res.id}`);
+    await projectService.putProject(res.id, { logo: "https://"+process.env.BUCKET_NAME + ".s3." + process.env.AWS_REGION+ ".amazonaws.com/"+res.id.toString() })
     return NextResponse.json( res );
 
   } catch (error) {
